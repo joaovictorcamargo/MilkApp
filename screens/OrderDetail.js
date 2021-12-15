@@ -17,6 +17,26 @@ const OrderDetail = ({navigation, route, appTheme}) => {
     const [selectedItem, setSelectedItem] = useState(null)
     const [selectedSize, setSelectedSize] = useState(32)
     const [selectedMilkIndex, setSelectedMilkIndex] = useState(0)
+    const [selectedSweetnessLevel, setSelectedSweetnessLevel] = useState(50)
+    const [selectedIceLevel, setSelectedIceLevel] = useState(50)
+
+    function SweetnessLevelButtonHandler(action) {
+        if(action == "+" && selectedSweetnessLevel < 100) {
+            setSelectedSweetnessLevel(selectedSweetnessLevel + 25)    
+        }else if (action == "-" && selectedSweetnessLevel > 0) {
+            setSelectedSweetnessLevel(selectedSweetnessLevel - 25)
+        }
+        
+    }
+
+    function IceLevelButtonHandler(action) {
+        if(action == "+" && selectedIceLevel < 100) {
+            setSelectedIceLevel(selectedIceLevel + 25)    
+        }else if (action == "-" && selectedIceLevel > 0) {
+            setSelectedIceLevel(selectedIceLevel - 25)
+        }
+        
+    }
 
     function renderHeaderSection() {
         return (
@@ -271,11 +291,11 @@ const OrderDetail = ({navigation, route, appTheme}) => {
                                 height: 15,
                                 tintColor: COLORS.black
                             }}
-                            //onPress
+                            onPress={() => milkButtonHandler("prev")}
                             />
 
                              <Image
-                             source={dummyData.milkList[0].image}
+                             source={dummyData.milkList[selectedMilkIndex].image}
                              resizeMode="contain"
                              style={{
                                  flex: 1,
@@ -299,7 +319,7 @@ const OrderDetail = ({navigation, route, appTheme}) => {
                                 height: 15,
                                 tintColor: COLORS.black
                             }}
-                            //onPress
+                            onPress={() => milkButtonHandler("next")}
                             />
 
                         </View>
@@ -311,8 +331,193 @@ const OrderDetail = ({navigation, route, appTheme}) => {
                             ...FONTS.body3
                         }}
                         >
-                            {dummyData.milkList[0].name}
+                            {dummyData.milkList[selectedMilkIndex].name}
                         </Text>
+
+                    </View>
+
+                    {/*Sweetness & Ice*/}
+                    <View
+                    style={{
+                        flex: 1
+                    }}
+                    >
+                        {/*Sweetness*/}
+                        <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            paddingHorizontal: SIZES.padding
+                        }}
+                        >
+
+                            <Text
+                            style={{
+                                textAlign: 'center',
+                                color: appTheme.headerColor,
+                                ...FONTS.h2,
+                                fontSize: 20
+                            }}
+                            >
+                                Sweetness
+                            </Text>
+
+                            <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: "60%",
+                                borderRadius: 15,
+                                backgroundColor: COLORS.primary
+                            }}
+                            >
+
+                                <IconButton
+                                icon={icons.leftArrow}
+                                containerStyle={{
+                                    marginLeft: -8,
+                                    width: 25,
+                                    height: 25,
+                                    borderRadius: 3,
+                                    backgroundColor: COLORS.white
+                                }}
+                                iconStyle={{
+                                    width: 15,
+                                    height: 15,
+                                    tintColor: COLORS.black
+                                }}
+                                onPress={() => SweetnessLevelButtonHandler("-")}
+                                />
+
+                                <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                                >
+                                    <Text
+                                    style={{
+                                        color: COLORS.white,
+                                        ...FONTS.h3
+                                    }}
+                                    >
+                                        {selectedSweetnessLevel}%
+                                    </Text>
+                                    
+                                </View>
+
+                                <IconButton
+                                icon={icons.rightArrow}
+                                containerStyle={{
+                                    marginRight: -8,
+                                    width: 25,
+                                    height: 25,
+                                    borderRadius: 3,
+                                    backgroundColor: COLORS.white
+                                }}
+                                iconStyle={{
+                                    width: 15,
+                                    height: 15,
+                                    tintColor: COLORS.black
+                                }}
+                                onPress={() => SweetnessLevelButtonHandler("+")}
+                                />
+                             
+                                
+                            </View>
+
+                        </View>
+
+                        {/*Ice*/}
+
+                        <View
+                        style={{
+                            flex: 1,
+                            justifyContent: 'center',
+                            paddingHorizontal: SIZES.padding
+                        }}
+                        >
+
+                            <Text
+                            style={{
+                                textAlign: 'center',
+                                color: appTheme.headerColor,
+                                ...FONTS.h2,
+                                fontSize: 20
+                            }}
+                            >
+                                Ice
+                            </Text>
+
+                            <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                height: "60%",
+                                borderRadius: 15,
+                                backgroundColor: COLORS.primary
+                            }}
+                            >
+
+                                <IconButton
+                                icon={icons.leftArrow}
+                                containerStyle={{
+                                    marginLeft: -8,
+                                    width: 25,
+                                    height: 25,
+                                    borderRadius: 3,
+                                    backgroundColor: COLORS.white
+                                }}
+                                iconStyle={{
+                                    width: 15,
+                                    height: 15,
+                                    tintColor: COLORS.black
+                                }}
+                                onPress={() => IceLevelButtonHandler("-")}
+                                />
+
+                                <View
+                                style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                                >
+                                    <Text
+                                    style={{
+                                        color: COLORS.white,
+                                        ...FONTS.h3
+                                    }}
+                                    >
+                                        {selectedIceLevel}%
+                                    </Text>
+                                    
+                                </View>
+
+                                <IconButton
+                                icon={icons.rightArrow}
+                                containerStyle={{
+                                    marginRight: -8,
+                                    width: 25,
+                                    height: 25,
+                                    borderRadius: 3,
+                                    backgroundColor: COLORS.white
+                                }}
+                                iconStyle={{
+                                    width: 15,
+                                    height: 15,
+                                    tintColor: COLORS.black
+                                }}
+                                onPress={() => IceLevelButtonHandler("+")}
+                                />
+                             
+                                
+                            </View>
+
+                        </View>
 
                     </View>
 
